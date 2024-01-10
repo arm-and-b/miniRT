@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/08 22:20:53 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:44:52 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ t_vector	reflect(t_vector in, t_vector normal)
 
 t_vector	normal_at(t_element *elem, t_vector p)
 {
-	t_point		object_point;
-	t_vector	object_normal;
+	t_point		local_point;
+	t_vector	local_normal = 0;
 	t_vector	world_normal;
 
-	object_point = vect_x_matrix(elem->inverse, p);
-	object_point.w = 1.0;
-	object_normal = sub_vecs(object_point, point(0, 0, 0));
+	local_point = vect_x_matrix(elem->inverse, p);
+	local_point.w = 1.0;
+	if (elem->type == 1)
+		local_normal = local_point;
+	else if (elem->type == 2)
+		local_normal = vector(0, 1, 0);
 	world_normal = vect_x_matrix(transpose(elem->inverse), \
-			object_normal);
+			local_normal);
 	world_normal.w = 0.0;
 	return (normalize(world_normal));
 }

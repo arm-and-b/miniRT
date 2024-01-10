@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:03:18 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 22:27:09 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:47:37 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	get_plane(char **element, t_world *world)
 	world->parser = ft_split(element[1], ',', world);
 	if (tab_size(world->parser) != 3)
 		ft_error("plane", true, world);
-	plane = ft_malloc(sizeof(t_element), world);
+	plane = (t_element *)ft_malloc(sizeof(t_element), world);
 	plane->plane.origin = point(ft_atof(world->parser[0], world),
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
@@ -122,8 +122,9 @@ void	get_plane(char **element, t_world *world)
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
 	// plane->orient = normalize(plane->orient);
-	plane->transform = translation(plane->sphere.origin.x, \
-	plane->sphere.origin.y, plane->sphere.origin.z);
+	// plane->transform = identity_matrix();
+	plane->transform = translation(plane->plane.origin.x, \
+	plane->plane.origin.y, plane->plane.origin.z);
 	plane->inverse = inverse(plane->transform);
 	plane->type = 2;
 	plane->next = NULL;

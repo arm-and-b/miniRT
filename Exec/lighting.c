@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 22:45:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 21:49:31 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:39:03 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_color	lighting(t_world *world, t_comps comps, bool in_shadow)
 	float		factor;
 
 	effective_color = m.color * world->light.brightness;
-	lightv = normalize(world->light.position - comps.over_point);
+	lightv = normalize(world->light.position - comps.point);
 	ambient = effective_color * world->ambient.brightness;
 	light_dot_normal = dot_product(lightv, comps.normalv);
 	if (light_dot_normal < 0 || in_shadow)

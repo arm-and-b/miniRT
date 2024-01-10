@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 22:02:54 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:45:58 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void				get_color(char *element, t_world *world, t_color *colors);
 void				ft_add_back(t_element **lst, t_element *new);
 
 // EXEC
+t_matrix	rotation_matrix(t_vector vector);
+
 void	intersect_plane(t_element *plane, t_world *world,t_ray r);
 bool	is_shadowed(t_world *world, t_point point);
 t_color				new_color(float r, float g, float b);

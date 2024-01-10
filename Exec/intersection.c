@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 22:11:15 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:03:29 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 {
 	float	t;
 
-	if (fabs(r.direction.y) < EPSILON)
+	if (fabsf(r.direction.y) < EPSILON)
 		return ;
-	t = -r.origin.y / r.direction.y;
+	t = (-r.origin.y) / r.direction.y;
 	intersection(t, plane, world);
 }
 
