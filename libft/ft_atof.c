@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 06:07:03 by mbekouch          #+#    #+#             */
-/*   Updated: 2023/12/15 20:55:26 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:45:03 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ float	ft_atof(char *str, t_world *world)
 		i++;
 	}
 	atof /= fac;
-	if (atoi < 0)
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i += 1;
+	if (str[i] == '-')
 		return (atoi - atof);
 	return (atoi + atof);
 }

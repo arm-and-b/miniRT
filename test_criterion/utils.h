@@ -3,23 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:31:28 by mdias-ma          #+#    #+#             */
-/*   Updated: 2024/01/08 20:51:52 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:12:24 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/criterion.h"
-#include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/assert.h"
-#include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/new/assert.h"
-// #include "/mnt/nfs/homes/abinet/Criterion/include/criterion/criterion.h"
-// #include "/mnt/nfs/homes/abinet/Criterion/include/criterion/assert.h"
-// #include "/mnt/nfs/homes/abinet/Criterion/include/criterion/new/assert.h"
-
+#include "../Criterion/include/criterion/criterion.h"
+#include "../Criterion/include/criterion/assert.h"
+#include "../Criterion/include/criterion/new/assert.h"
 # include <stdio.h>
 # include "../MiniRT.h"
 

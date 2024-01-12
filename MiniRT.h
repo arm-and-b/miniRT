@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/10 17:45:58 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:25:04 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@
 # include "./libft/libft.h"
 # include "./mlx/mlx.h"
 # include "Elements.h"
-# include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/criterion.h"
-# include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/assert.h"
-# include "/mnt/nfs/homes/mbekouch/Criterion/include/criterion/new/assert.h"
-// # include "/mnt/nfs/homes/abinet/Criterion/include/criterion/criterion.h"
-// # include "/mnt/nfs/homes/abinet/Criterion/include/criterion/assert.h"
-// # include "/mnt/nfs/homes/abinet/Criterion/include/criterion/new/assert.h"
-# include "test_criterion/utils.h"
+// # include "Criterion/include/criterion/criterion.h"
+// # include "Criterion/include/criterion/assert.h"
+// # include "Criterion/include/criterion/new/assert.h"
+// # include "test_criterion/utils.h"
 # define EPSILON	0.0001
 # define WIN_HEIGHT	400
 # define WIN_WIDTH	800
@@ -74,7 +71,6 @@ void				ft_add_back(t_element **lst, t_element *new);
 
 // EXEC
 t_matrix	rotation_matrix(t_vector vector);
-
 void	intersect_plane(t_element *plane, t_world *world,t_ray r);
 bool	is_shadowed(t_world *world, t_point point);
 t_color				new_color(float r, float g, float b);
@@ -116,6 +112,8 @@ t_matrix			view_transform(t_vector from, t_vector to, t_vector up);
 t_camera			new_camera(float hsize, float vsize, float fov);
 t_ray				ray_for_pixel(t_camera camera, int px, int py);
 t_color				shade_hit(t_world *world, t_comps comps);
+float				calculate_shininess(t_comps comps, t_world *world);
+
 
 // MATHS UTILS
 t_point				point(float x, float y, float z);

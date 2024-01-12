@@ -73,11 +73,9 @@ SRCS_TEST_FILES = test_atof.c  utils_criterion.c test_colors.c test_matrices.c \
 				test_camera.c test_view_transform.c test_tuples.c #test_intersections.c test_rays.c
 SRC_TEST_DIR = test_criterion/
 SRCS_TEST = $(addprefix $(SRC_TEST_DIR), $(SRCS_TEST_FILES))
-#CRITERION = -Wl,-rpath=/mnt/nfs/homes/mbekouch/Criterion/build/src -L/mnt/nfs/homes/mbekouch/Criterion/build/src -lcriterion
-CRITERION = -Wl,-rpath=/mnt/nfs/homes/abinet/Criterion/build/src -L/mnt/nfs/homes/abinet/Criterion/build/src -lcriterion
+CRITERION = -Wl,-rpath=/Criterion/build/src -L/mnt/nfs/homes/abinet/Criterion/build/src -lcriterion
 
-#INCLUDE_TEST = -I/mnt/nfs/homes/mbekouch/Criterion/include/criterion
-INCLUDE_TEST = -I/mnt/nfs/homes/abinet/Criterion/include/criterion
+INCLUDE_TEST = -I/Criterion/include/criterion
 
 ################################
 
