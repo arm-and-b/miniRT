@@ -1,0 +1,11 @@
+C  10,7,4         -1,0,0  120
+L  -1,4,0   0.0    255,255,255
+A  0.4 255,255,255
+
+# Cylinder
+# <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
+# cy       0,0,0           0,0,0          2         1        0,0,255
+
+# Cylinder
+# <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
+cy       0,1,0           1,0,0          2         1        255,0,255

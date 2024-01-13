@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Elements.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 04:32:19 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 23:37:41 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <math.h>
+
 # define ESC 65307
+# define SPHERE 1
+# define PLANE 2
+# define CYLINDER 3
 
 typedef struct s_matrix
 {
@@ -89,7 +93,7 @@ typedef struct s_element
 	{
 		t_sphere	sphere;
 		t_plane		plane;
-		t_cylinder	cylinder;		
+		t_cylinder	cylinder;
 	};
 	int					type;
 	t_material			material;

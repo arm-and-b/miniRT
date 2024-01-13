@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 05:46:25 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 22:03:51 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 23:41:21 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	get_elements(char **element, t_world *world)
 		get_sphere(element, world);
 	else if (!ft_strncmp(element[0], "pl", 3))
 		get_plane(element, world);
-	// else if (!ft_strncmp(element[0], "cy", 2))
-	// 	get_cylinder(element, world);
+	else if (!ft_strncmp(element[0], "cy", 3))
+		get_cylinder(element, world);
 	else
 		ft_error("Parsing error", true, world);
 }

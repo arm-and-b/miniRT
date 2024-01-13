@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/13 05:16:11 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:38:09 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ t_vector	normal_at(t_element *elem, t_vector p)
 
 	local_point = vect_x_matrix(elem->inverse, p);
 	local_point.w = 1.0;
-	if (elem->type == 1)
+	if (elem->type == SPHERE)
 		local_normal = local_point - point(0, 0, 0);
-	if (elem->type == 2)
+	if (elem->type == PLANE)
 		local_normal = vector(0, 1, 0);
+	if(elem->type == CYLINDER)
+		local_normal = vector(local_point.x, 0, local_point.z);
 	world_normal = vect_x_matrix(transpose(elem->inverse), \
 			local_normal);
 	world_normal.w = 0.0;

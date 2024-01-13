@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:29:36 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 04:45:38 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/14 00:11:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,31 @@ void	get_orientation(t_vector *orientation, t_world *world)
 		ft_error("Direction Vector", true, world);
 }
 
-// void	get_cylinder(char **element, t_world *world)
-// {
-// 	t_cylinder	*cylinder;
+void	get_cylinder(char **element, t_world *world)
+{
+	t_element	*cy;
 
-// 	if (tab_size(element) != 6)
-// 		ft_error(PARS_CYL, true, world);
-// 	world->parser = ft_split(element[1], ',', world);
-// 	if (tab_size(world->parser) != 3)
-// 		ft_error(PARS_CYL, true, world);
-// 	cylinder = ft_malloc(sizeof(t_cylinder), world);
-// 	cylinder->center_p = point(ft_atof(world->parser[0], world),
-// 			ft_atof(world->parser[1], world),
-// 			ft_atof(world->parser[2], world));
-// 	world->parser = ft_split(element[2], ',', world);
-// 	if (tab_size(world->parser) != 3)
-// 		ft_error(PARS_CYL, true, world);
-// 	cylinder->axis = vector(ft_atof(world->parser[0], world),
-// 			ft_atof(world->parser[1], world),
-// 			ft_atof(world->parser[2], world));
-// 	cylinder->axis = normalize(cylinder->axis);
-// 	cylinder->diameter = ft_atof(element[3], world);
-// 	cylinder->height = ft_atof(element[4], world);
-// 	if (cylinder->diameter <= 0.0 || cylinder->height <= 0.0)
-// 		ft_error(PARS_CYL, true, world);
-// 	get_color(element[5], world, &cylinder->colors);
-// 	ft_add_back(world->objects, ft_newelement(Cylinder, cylinder, world));
-// }
+	if (tab_size(element) != 6)
+		ft_error("cy element", true, world);
+	world->parser = ft_split(element[1], ',', world);
+	if (tab_size(world->parser) != 3)
+		ft_error("cy", true, world);
+	cy = ft_malloc(sizeof(t_element), world);
+	cy->cylinder.origin = point(ft_atof(world->parser[0], world),
+			ft_atof(world->parser[1], world),
+			ft_atof(world->parser[2], world));
+	world->parser = ft_split(element[2], ',', world);
+	if (tab_size(world->parser) != 3)
+		ft_error("cyl", true, world);
+	cy->cylinder.axis = vector(ft_atof(world->parser[0], world),
+			ft_atof(world->parser[1], world),
+			ft_atof(world->parser[2], world));
+	cy->cylinder.axis = normalize(cy->cylinder.axis);
+	cy->cylinder.diameter = ft_atof(element[3], world);
+	cy->cylinder.height = ft_atof(element[4], world);
+	if (cy->cylinder.diameter <= 0.0 || cy->cylinder.height <= 0.0)
+		ft_error("cyl diameter", true, world);
+	get_color(element[5], world, &cy->material.color);
+	cy->type = CYLINDER;
+	ft_add_back(world->objects, cy);
+}
