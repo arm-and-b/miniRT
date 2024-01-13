@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 01:17:54 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/10 19:55:31 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:16:36 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_ray	transform(t_ray	r, t_matrix m)
 	return (new);
 }
 
-// void	set_transform(t_element	*sphere, t_matrix m)
-// {
-// 	sphere->transform = m;
-// }
+void	set_transform(t_element	*sphere, t_matrix m)
+{
+	sphere->transform = m;
+	sphere->inverse = inverse(m);
+}

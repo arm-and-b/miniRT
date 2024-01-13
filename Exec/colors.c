@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 23:31:04 by mbekouch          #+#    #+#             */
-/*   Updated: 2023/12/11 21:11:48 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/13 04:37:39 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ t_color	add_colors(t_color	a, t_color	b)
 	return (c);
 }
 
-t_color	subtr_colors(t_color	a, t_color	b)
-{
-	t_color	c;
-
-	c.r = a.r - b.r;
-	c.g = a.g - b.g;
-	c.b = a.b - b.b;
-	return (c);
-}
-
 t_color	mult_color(t_color	a, float b)
 {
 	t_color	c;
@@ -49,16 +39,6 @@ t_color	mult_color(t_color	a, float b)
 	c.r = a.r * b;
 	c.g = a.g * b;
 	c.b = a.b * b;
-	return (c);
-}
-
-t_color	hadamard_product(t_color	a, t_color	b)
-{
-	t_color	c;
-
-	c.r = a.r * b.r;
-	c.g = a.g * b.g;
-	c.b = a.b * b.b;
 	return (c);
 }
 

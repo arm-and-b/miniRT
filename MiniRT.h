@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/12 16:25:04 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/13 07:17:43 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void				get_camera2(char **element, t_world *world);
 void				get_cylinder(char **element, t_world *world);
 void				get_color(char *element, t_world *world, t_color *colors);
 void				ft_add_back(t_element **lst, t_element *new);
+void				get_orientation(t_vector *orientation, t_world *world);
 
 // EXEC
-t_matrix	rotation_matrix(t_vector vector);
-void	intersect_plane(t_element *plane, t_world *world,t_ray r);
-bool	is_shadowed(t_world *world, t_point point);
+t_matrix			rotation_matrix(t_vector vector);
+bool				is_shadowed(t_world *world, t_point point);
 t_color				new_color(float r, float g, float b);
 t_color				add_colors(t_color	a, t_color	b);
 t_color				subtr_colors(t_color	a, t_color	b);
@@ -91,21 +91,18 @@ void				print_vect(t_vector v);
 void				print_matrix(t_matrix a);
 t_discriminant		sphere_discriminant(t_ray	r, t_sphere	sp);
 void				intersect(t_world	*world, t_ray	r);
-void				intersect_sphere(t_element *sphere,
-						t_world *world, t_ray r);
-void				intersection(float t, t_element *element, t_world *world);
 t_intersect			*hit(t_world *world);
 t_ray				transform(t_ray	r, t_matrix m);
 void				set_transform(t_element	*sphere, t_matrix m);
 t_ray				create_ray(t_vector origin, t_vector direction);
 t_point				position(t_ray	r, float t);
-t_vector				normal_at(t_element *elem, t_vector p);
-t_vector				reflect(t_vector in, t_vector normal);
+t_vector			normal_at(t_element *elem, t_vector p);
+t_vector			reflect(t_vector in, t_vector normal);
 t_material			material(void);
 t_light				point_light(t_vector position, t_color intensity);
 t_color				lighting(t_world *world, t_comps comps, bool in_shadow);
 void				print_color(t_color c);
-t_vector				position(t_ray	r, float t);
+t_vector			position(t_ray	r, float t);
 t_comps				prepare_computations(t_intersect *i, t_ray r);
 t_color				color_at(t_world *world, t_ray r);
 t_matrix			view_transform(t_vector from, t_vector to, t_vector up);
@@ -113,22 +110,24 @@ t_camera			new_camera(float hsize, float vsize, float fov);
 t_ray				ray_for_pixel(t_camera camera, int px, int py);
 t_color				shade_hit(t_world *world, t_comps comps);
 float				calculate_shininess(t_comps comps, t_world *world);
+t_discriminant			cylinder_discriminant(t_ray	r, t_sphere	sp);
 
 
 // MATHS UTILS
+t_vector			negate(t_vector v);
 t_point				point(float x, float y, float z);
-t_vector				vector(float x, float y, float z);
-t_vector				cross_product(t_vector	a, t_vector	b);
+t_vector			vector(float x, float y, float z);
+t_vector			cross_product(t_vector	a, t_vector	b);
 float				dot_product(t_vector	a, t_vector	b);
-t_vector				add_vecs(t_vector	a, t_vector	b);
-t_vector				sub_vecs(t_vector	a, t_vector	b);
-t_vector				neg_vect(t_vector	a);
-t_vector				multiply_vect(t_vector	a, float ratio);
-t_vector				divide_vect(t_vector	a, float ratio);
+t_vector			add_vecs(t_vector	a, t_vector	b);
+t_vector			sub_vecs(t_vector	a, t_vector	b);
+t_vector			neg_vect(t_vector	a);
+t_vector			multiply_vect(t_vector	a, float ratio);
+t_vector			divide_vect(t_vector	a, float ratio);
 float				magnitude(t_vector v);
-t_vector				normalize(t_vector v);
+t_vector			normalize(t_vector v);
 t_matrix			cross_matrices(t_matrix a, t_matrix b);
-t_vector				vect_x_matrix(t_matrix b, t_vector a);
+t_vector			vect_x_matrix(t_matrix b, t_vector a);
 t_matrix			identity_matrix(void);
 t_matrix			transpose(t_matrix a);
 t_matrix			submatrix(t_matrix a, size_t del_row, size_t del_col);

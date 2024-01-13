@@ -6,12 +6,24 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:29:36 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/06 22:21:55 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 04:45:38 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MiniRT.h"
 
+void	get_ambient(char **element, t_world *world)
+{
+	if (world->ambient.parsed)
+		ft_error("Too Many ambient Lights", true, world);
+	if (tab_size(element) != 3)
+		ft_error("Ambient Light Elements", true, world);
+	world->ambient.brightness = ft_atof(element[1], world);
+	if (world->ambient.brightness < 0.0 || world->ambient.brightness > 1.0)
+		ft_error("Ambient Brightness", true, world);
+	get_color(element[2], world, &world->ambient.colors);
+	world->ambient.parsed = true;
+}
 
 void	get_color(char *element, t_world *world, t_color *colors)
 {
@@ -26,6 +38,17 @@ void	get_color(char *element, t_world *world, t_color *colors)
 		|| (colors->g < 0 || colors->g > 1)
 		|| (colors->b < 0 || colors->b > 1))
 		ft_error("Color Values", true, world);
+}
+
+void	get_orientation(t_vector *orientation, t_world *world)
+{
+	*orientation = vector(ft_atof(world->parser[0], world),
+			ft_atof(world->parser[1], world),
+			ft_atof(world->parser[2], world));
+	if ((orientation->x != -1 && orientation->x != 1 && orientation->x != 0)
+		|| (orientation->y != -1 && orientation->y != 1 && orientation->y != 0)
+		|| (orientation->z != -1 && orientation->z != 1 && orientation->z != 0))
+		ft_error("Direction Vector", true, world);
 }
 
 // void	get_cylinder(char **element, t_world *world)

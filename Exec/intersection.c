@@ -6,30 +6,42 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/10 20:03:29 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 07:16:53 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MiniRT.h"
 
-void	intersect(t_world	*world, t_ray	r)
+static void	intersection(float t, t_element *element, t_world *world)
 {
-	t_element	*tmp;
+	static t_intersect	list[256];
+	static size_t		i;
+	t_intersect			*inter[3];
+	t_intersect			**xs;
 
-	tmp = *world->objects;
-	while (tmp)
+	inter[0] = list + (i++ % 256);
+	inter[0]->t = t;
+	inter[0]->element = element;
+	inter[0]->next = NULL;
+	inter[1] = NULL;
+	xs = &world->intersections;
+	inter[2] = *xs;
+	while (inter[2] && inter[2]->t < inter[0]->t)
 	{
-		if (tmp->type == 1)
-			intersect_sphere(tmp, world, r);
-		else if (tmp->type == 2)
-			intersect_plane(tmp, world, r);
-		// else if (tmp->type == CYLINDER)
-		// 	intersect_cylinder((t_cylinder *)tmp, world);
-		tmp = tmp->next;
+		inter[1] = inter[2];
+		inter[2] = inter[2]->next;
 	}
+	if (inter[1] == NULL)
+	{
+		inter[0]->next = *xs;
+		*xs = inter[0];
+		return ;
+	}
+	inter[1]->next = inter[0];
+	inter[0]->next = inter[2];
 }
 
-void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
+static void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
 {
 	t_discriminant	d;
 
@@ -40,7 +52,7 @@ void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
 	intersection(d.t2, sphere, world);
 }
 
-void	intersect_plane(t_element *plane, t_world *world, t_ray r)
+static void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 {
 	float	t;
 
@@ -50,35 +62,37 @@ void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 	intersection(t, plane, world);
 }
 
-void	intersection(float t, t_element *element, t_world *world)
+// Pas encore fini
+static void	intersect_cylinder(t_element *plane, t_world *world, t_ray r)
 {
-	static t_intersect	list[256];
-	static size_t	i;
-	t_intersect	*interse;
-	t_intersect	*precedent;
-	t_intersect	*actuel;
-	t_intersect	**xs;
+	t_discriminant	d;
 
-	interse = list + (i++ % 256);
-	interse->t = t;
-	interse->element = element;
-	interse->next = NULL;
-	precedent = NULL;
-	xs = &world->intersections;
-	actuel = *xs;
-	while (actuel && actuel->t < interse->t)
-	{
-		precedent = actuel;
-		actuel = actuel->next;
-	}
-	if (precedent == NULL)
-	{
-		interse->next = *xs;
-		*xs = interse;
+	d = cylinder_discriminant(r, plane->cylinder);
+	if (d.disc < 0 || d.a < EPSILON)
 		return ;
+	intersection(d.t1, plane, world);
+	intersection(d.t2, plane, world);
+}
+
+
+void	intersect(t_world	*world, t_ray	r)
+{
+	t_element	*tmp;
+	t_ray		ray;
+
+	tmp = *world->objects;
+	world->intersections = NULL;
+	while (tmp)
+	{
+		if (tmp->type == 1)
+			intersect_sphere(tmp, world, r);
+		else if (tmp->type == 2)
+		{
+			ray = transform(r, inverse(tmp->transform));
+			intersect_plane(tmp, world, ray);
+		}
+		tmp = tmp->next;
 	}
-	precedent->next = interse;
-	interse->next = actuel;
 }
 
 t_comps	prepare_computations(t_intersect *i, t_ray r)
@@ -88,13 +102,13 @@ t_comps	prepare_computations(t_intersect *i, t_ray r)
 	c.t = i->t;
 	c.object = i->element;
 	c.point = position(r, c.t);
-	c.eyev = -r.direction;
+	c.eyev = negate(r.direction);
 	c.normalv = normal_at(c.object, c.point);
 	c.inside = false;
 	if (dot_product(c.normalv, c.eyev) < 0)
 	{
 		c.inside = true;
-		c.normalv = -c.normalv;
+		c.normalv = negate(c.normalv);
 	}
 	c.over_point = c.point + c.normalv * EPSILON;
 	return (c);

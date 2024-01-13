@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:06:26 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/06 20:48:02 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 05:20:27 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	render(t_world *world)
 	t_camera	camera;
 
 	camera = new_camera(WIN_WIDTH, WIN_HEIGHT, radians(world->camera.fov));
-	camera.transform = view_transform(world->camera.origin, point(0, 1, 0), \
-	world->camera.orientation);
+	camera.transform = view_transform(world->camera.origin, \
+	world->camera.orientation, vector(0, 1, 0));
 	camera.inverse = inverse(camera.transform);
 	y = 0;
 	while (y < camera.vsize - 1)
@@ -40,7 +40,6 @@ void	render(t_world *world)
 		x = 0;
 		while (x < camera.hsize - 1)
 		{
-			world->intersections = NULL;
 			ray = ray_for_pixel(camera, x, y);
 			color = color_at(world, ray);
 			write_pixel(world->mlx.img, x, y, rgb(color));
@@ -49,7 +48,6 @@ void	render(t_world *world)
 		y++;
 	}
 }
-
 
 void	fill_in_image(t_world *world)
 {
@@ -65,7 +63,7 @@ void	fill_in_image(t_world *world)
 
 int	win_close(int keycode, t_world *world)
 {
-	if (keycode == 65307)
+	if (keycode == ESC)
 		mlx_loop_end(world->mlx.mlx);
 	return (0);
 }

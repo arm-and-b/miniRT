@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 22:45:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/12 21:56:08 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/13 06:27:22 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,8 @@ t_material	material(void)
 	t_material	m;
 
 	m.color = (t_color){6, 8, 5};
-	m.diffuse = 0.9;
-	m.specular = 0.9;
-	m.shininess = 200;
+	m.shininess = 2000.0f;
 	return (m);
-}
-
-t_light	point_light(t_vector position, t_color colors)
-{
-	t_light	light;
-
-	light.position = position;
-	light.colors = colors;
-	return (light);
 }
 
 t_color	shade_hit(t_world *world, t_comps comps)
@@ -37,65 +26,35 @@ t_color	shade_hit(t_world *world, t_comps comps)
 	return (lighting(world, comps, is_shadowed(world, comps.over_point)));
 }
 
-float	calculate_shininess(t_comps comps, t_world *world)
-{
-	float		shininess;
-
-	shininess = 200 - powf(distance_points(comps.t, world->light.position), 2);
-	if (shininess > 1)
-		printf("shininess: %f\n", shininess);
-	return (shininess);
-}
-
 t_color	lighting(t_world *world, t_comps comps, bool in_shadow)
 {
-	t_color		effective_color;
-	t_color		ambient;
-	t_color		diffuse;
-	t_color		specular;
-	t_vector	lightv;
-	t_vector	reflectv;
-	t_material	m = comps.object->material;
-	float		light_dot_normal;
-	float		reflect_dot_eye;
-	float		factor;
-	(void)in_shadow;
-	effective_color = m.color * world->light.colors;
-	lightv = normalize(world->light.position - comps.point);
-	ambient = effective_color * world->ambient.brightness;
-	light_dot_normal = dot_product(lightv, comps.normalv);
-	if (light_dot_normal < 0)// || in_shadow)
-	{
-		diffuse = (t_color){0, 0, 0};
-		specular = (t_color){0, 0, 0};
-	}
-	else
-	{
-		diffuse = effective_color * light_dot_normal;
-		reflectv = reflect(-lightv, comps.normalv);
-		reflect_dot_eye = dot_product(reflectv, comps.eyev);
-		if (reflect_dot_eye <= 0)
-			specular = (t_color){0, 0, 0};
-		else
-		{
-			//m.shininess = calculate_shininess(comps, world);
-			factor = powf(reflect_dot_eye, m.shininess);
-			specular = world->light.colors * factor;
-		}
-	}
-	return ((ambient + diffuse + specular));
+	t_lighting	lc;
+	t_material	m;
+	float		intensity;
+
+	m = comps.object->material;
+	intensity = ((world->ambient.brightness * 0.5f \
+	+ world->light.brightness) / 2.0f);
+	lc.effective_color = m.color * world->light.colors * intensity;
+	lc.lightv = normalize(world->light.position - comps.over_point);
+	lc.ambient = lc.effective_color * world->ambient.colors;
+	lc.light_dot_normal = dot_product(lc.lightv, comps.normalv);
+	if (lc.light_dot_normal < 0 || in_shadow)
+		return (lc.ambient);
+	lc.diffuse = lc.effective_color * lc.light_dot_normal;
+	lc.reflectv = reflect(negate(lc.lightv), comps.normalv);
+	lc.reflect_dot_eye = dot_product(lc.reflectv, comps.eyev);
+	if (lc.reflect_dot_eye <= 0)
+		return (lc.ambient + lc.diffuse);
+	lc.factor = powf(lc.reflect_dot_eye, m.shininess);
+	lc.specular = world->light.colors * lc.factor / intensity;
+	return (lc.ambient + (lc.diffuse + lc.specular));
 }
 
 t_color	color_at(t_world *world, t_ray r)
 {
-	t_comps	comps;
-
 	intersect(world, r);
 	if (!hit(world))
 		return ((t_color){0, 0, 0});
-	else
-	{
-		comps = prepare_computations(hit(world), r);
-		return (shade_hit(world, comps));
-	}
+	return (shade_hit(world, prepare_computations(hit(world), r)));
 }

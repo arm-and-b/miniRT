@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/07 20:52:31 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 04:32:19 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <math.h>
+# define ESC 65307
 
 typedef struct s_matrix
 {
@@ -70,7 +71,6 @@ typedef struct s_plane
 
 typedef struct s_sphere
 {
-	float		diameter;
 	float		rayon;
 	t_point		origin;
 }	t_sphere;
@@ -131,5 +131,18 @@ typedef struct s_comps
 	t_point		over_point;
 	bool		inside;
 }	t_comps;
+
+typedef struct s_lighting
+{
+	t_color		effective_color;
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		specular;
+	t_vector	lightv;
+	t_vector	reflectv;
+	float		light_dot_normal;
+	float		reflect_dot_eye;
+	float		factor;
+}	t_lighting;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/10 20:44:52 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 05:16:11 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	magnitude(t_vector v)
 {
-	return (sqrt(powf(v.x, 2) + powf(v.y, 2) + powf(v.z, 2)));
+	return (sqrtf(powf(v.x, 2.0) + powf(v.y, 2.0) + powf(v.z, 2.0)));
 }
 
 t_vector	normalize(t_vector v)
@@ -23,7 +23,7 @@ t_vector	normalize(t_vector v)
 	float		d;
 
 	d = magnitude(v);
-	if (d == 0)
+	if (d == 0.00000)
 		return (v);
 	c.x = v.x / d;
 	c.y = v.y / d;
@@ -34,23 +34,25 @@ t_vector	normalize(t_vector v)
 
 t_vector	reflect(t_vector in, t_vector normal)
 {
-	t_vector	v;
+	return (in - normal * 2.0 * dot_product(in, normal));
+}
 
-	v = normal * 2.0 * dot_product(in, normal);
-	return (sub_vecs(in, v));
+t_vector	negate(t_vector v)
+{
+	return (vector(-v.x, -v.y, -v.z));
 }
 
 t_vector	normal_at(t_element *elem, t_vector p)
 {
 	t_point		local_point;
-	t_vector	local_normal = 0;
+	t_vector	local_normal;
 	t_vector	world_normal;
 
 	local_point = vect_x_matrix(elem->inverse, p);
 	local_point.w = 1.0;
 	if (elem->type == 1)
-		local_normal = local_point;
-	else if (elem->type == 2)
+		local_normal = local_point - point(0, 0, 0);
+	if (elem->type == 2)
 		local_normal = vector(0, 1, 0);
 	world_normal = vect_x_matrix(transpose(elem->inverse), \
 			local_normal);
