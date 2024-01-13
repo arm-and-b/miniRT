@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   discriminants.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 20:14:49 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 07:14:22 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:03:38 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ t_discriminant	sphere_discriminant(t_ray	r, t_sphere	sp)
 	return (d);
 }
 
-t_discriminant	cylinder_discriminant(t_ray	r, t_sphere	sp)
+t_discriminant	cylinder_discriminant(t_ray	r, t_cylinder	cy)
 {
 	t_discriminant		d;
 
+	(void)cy;
 	d.a = powf(r.direction.x, 2.0f) + powf(r.direction.z, 2.0f);
 	d.b = 2 * r.origin.x * r.direction.x + \
 		2 * r.origin.z * r.direction.z;

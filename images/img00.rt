@@ -2,18 +2,18 @@
 
 # Ambient Light
 # <intensity: 0-1> <color: red, green, blue>
-A   0.1                  255,255,255
+A   0.2                  255,255,255
 
 # Camera
 # <coordinates of camera position: x,y,z> <camera view: x,y,z> <pov:x,y,z>
-C   0,0,-5              0,0,1           10
+C   0,0,-10              0,0,1           20
 
 # Error
 # K    -40,0,30                  0.7           255,255,255
 
 # Light
 # <coordinates: x,y,z> <brightness: 0-1> <color:red,green,blue>
-L   10,12,-5             1               255,0,0
+L   10,12,-5             0.9              255,255,255
 
 # Sphere
 # <coordinates: x,y,z> <diameter> <color:red,green,blue>

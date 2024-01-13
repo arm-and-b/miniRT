@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 07:16:53 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:28:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
 {
 	t_discriminant	d;
 
+	//printf("sphere\n");
 	d = sphere_discriminant(r, sphere->sphere);
 	if (d.disc < 0)
 		return ;
@@ -56,6 +57,7 @@ static void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 {
 	float	t;
 
+	printf("plane\n");
 	if (fabsf(r.direction.y) < EPSILON)
 		return ;
 	t = (-r.origin.y) / r.direction.y;
@@ -63,16 +65,17 @@ static void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 }
 
 // Pas encore fini
-static void	intersect_cylinder(t_element *plane, t_world *world, t_ray r)
-{
-	t_discriminant	d;
+// static void	intersect_cylinder(t_element *plane, t_world *world, t_ray r)
+// {
+// 	t_discriminant	d;
 
-	d = cylinder_discriminant(r, plane->cylinder);
-	if (d.disc < 0 || d.a < EPSILON)
-		return ;
-	intersection(d.t1, plane, world);
-	intersection(d.t2, plane, world);
-}
+// 	printf("cylinder\n");
+// 	d = cylinder_discriminant(r, plane->cylinder);
+// 	if (d.disc < 0 || d.a < EPSILON)
+// 		return ;
+// 	intersection(d.t1, plane, world);
+// 	intersection(d.t2, plane, world);
+// }
 
 
 void	intersect(t_world	*world, t_ray	r)
@@ -91,6 +94,8 @@ void	intersect(t_world	*world, t_ray	r)
 			ray = transform(r, inverse(tmp->transform));
 			intersect_plane(tmp, world, ray);
 		}
+		// else if (tmp->type == 3)
+		// 	intersect_cylinder(tmp, world, r);
 		tmp = tmp->next;
 	}
 }
