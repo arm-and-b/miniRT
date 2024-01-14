@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/13 22:38:09 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/14 22:40:38 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_vector	normal_at(t_element *elem, t_vector p)
 	t_point		local_point;
 	t_vector	local_normal;
 	t_vector	world_normal;
+	float		dist;
 
 	local_point = vect_x_matrix(elem->inverse, p);
 	local_point.w = 1.0;
@@ -55,7 +56,15 @@ t_vector	normal_at(t_element *elem, t_vector p)
 	if (elem->type == PLANE)
 		local_normal = vector(0, 1, 0);
 	if(elem->type == CYLINDER)
-		local_normal = vector(local_point.x, 0, local_point.z);
+	{
+		dist = powf(local_point.x, 2.0) + powf(local_point.z, 2.0);
+		if (dist < 1.0 && local_point.y >= elem->cylinder.maximum - EPSILON)
+			local_normal = vector(0, 1, 0);
+		else if (dist < 1.0 && local_point.y <= elem->cylinder.minimum + EPSILON)
+			local_normal = vector(0, -1, 0);
+		else
+			local_normal = vector(local_point.x, 0, local_point.z);
+	}
 	world_normal = vect_x_matrix(transpose(elem->inverse), \
 			local_normal);
 	world_normal.w = 0.0;

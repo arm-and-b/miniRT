@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:16:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/10 17:50:09 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:54:36 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ static void	calculate_rotation_angles(t_vector vec, float *x, float *z)
 	float	ratio;
 
 	ratio = sqrtf((vec.x * vec.x) + (vec.y * vec.y));
-	if (0.0 == ratio)
+	if (fabs(ratio) < EPSILON)
 		*z = M_PI_2;
 	else
 		*z = cosf(vec.y / ratio);
-	*x = cosf(ratio);
+	if (fabs(ratio) < EPSILON)
+		*x = cosf(EPSILON);
+	else
+		*x = cosf(ratio);
 }
 
 t_matrix	rotation_matrix(t_vector vector)

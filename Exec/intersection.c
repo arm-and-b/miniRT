@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 23:44:14 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:36:29 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,32 @@ static void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
 	t_discriminant	d;
 
 	d = cylinder_discriminant(r, cylinder->cylinder);
-	if (d.a < EPSILON)
-		return ;
+	intersect_caps(cylinder, r, world);
 	if (d.disc < 0 || d.a < EPSILON)
 		return ;
-	intersection(d.t1, cylinder, world);
-	intersection(d.t2, cylinder, world);
+	if (d.t1 > d.t2)
+		swap_float(&d.t1, &d.t2);
+	float	y1 = r.origin.y + d.t1 * r.direction.y;
+	if (cylinder->cylinder.minimum < y1 && y1 < cylinder->cylinder.maximum)
+		intersection(d.t1, cylinder, world);
+	float	y2 = r.origin.y + d.t2 * r.direction.y;
+	if (cylinder->cylinder.minimum < y2 && y2 < cylinder->cylinder.maximum)
+		intersection(d.t2, cylinder, world);
 }
 
+void	intersect_caps(t_element *cy, t_ray ray, t_world *world)
+{
+	float	t;
+
+	if (!cy->cylinder.closed || fabsf(ray.direction.y) < EPSILON)
+		return ;
+	t = (cy->cylinder.minimum - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, t, cy->cylinder.diameter / 2))
+		intersection(t, cy, world);
+	t = (cy->cylinder.maximum - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, t, cy->cylinder.diameter / 2))
+		intersection(t, cy, world);
+}
 
 void	intersect(t_world	*world, t_ray	r)
 {
@@ -97,23 +115,4 @@ void	intersect(t_world	*world, t_ray	r)
 			intersect_cylinder(tmp, world, r);
 		tmp = tmp->next;
 	}
-}
-
-t_comps	prepare_computations(t_intersect *i, t_ray r)
-{
-	t_comps	c;
-
-	c.t = i->t;
-	c.object = i->element;
-	c.point = position(r, c.t);
-	c.eyev = negate(r.direction);
-	c.normalv = normal_at(c.object, c.point);
-	c.inside = false;
-	if (dot_product(c.normalv, c.eyev) < 0)
-	{
-		c.inside = true;
-		c.normalv = negate(c.normalv);
-	}
-	c.over_point = c.point + c.normalv * EPSILON;
-	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:29:36 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 00:11:51 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:28:47 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,17 @@ void	get_cylinder(char **element, t_world *world)
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
 	cy->cylinder.axis = normalize(cy->cylinder.axis);
+	cy->material = material();
+	get_color(element[5], world, &cy->material.color);
+	set_transform(cy, cross_matrices(translation(cy->cylinder.origin.x, cy->cylinder.origin.y, cy->cylinder.origin.z),
+					rotation_matrix(vector(cy->cylinder.axis.x, cy->cylinder.axis.y, cy->cylinder.axis.z))));
 	cy->cylinder.diameter = ft_atof(element[3], world);
 	cy->cylinder.height = ft_atof(element[4], world);
 	if (cy->cylinder.diameter <= 0.0 || cy->cylinder.height <= 0.0)
 		ft_error("cyl diameter", true, world);
-	get_color(element[5], world, &cy->material.color);
 	cy->type = CYLINDER;
+	cy->cylinder.minimum = 1;
+	cy->cylinder.maximum = 100;
+	cy->cylinder.closed = false;
 	ft_add_back(world->objects, cy);
 }

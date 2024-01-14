@@ -35,6 +35,7 @@ SRCS =		check_params.c	\
 		hits.c	\
 		discriminants.c	\
 		intersection.c	\
+		intersection2.c	\
 		lighting.c	\
 		camera.c	\
 		shadows.c	\

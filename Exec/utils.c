@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:32:54 by mbekouch          #+#    #+#             */
-/*   Updated: 2023/12/14 22:06:22 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:18:28 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int	convert(float color)
 	color *= 255 + 0.5;
 	return (color);
 }
+
+void	swap_float(float *a, float *b)
+{
+	float	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 
 void	print_vect(t_vector v)
 {

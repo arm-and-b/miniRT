@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 23:37:41 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:58:42 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct s_cylinder
 	float		diameter;
 	t_point		origin;
 	t_vector	axis;
+	float		minimum;
+	float		maximum;
+	bool		closed;
 }	t_cylinder;
 
 typedef struct s_element

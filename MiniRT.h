@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 15:27:42 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/14 22:05:22 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ t_ray				ray_for_pixel(t_camera camera, int px, int py);
 t_color				shade_hit(t_world *world, t_comps comps);
 float				calculate_shininess(t_comps comps, t_world *world);
 t_discriminant		cylinder_discriminant(t_ray	r, t_cylinder	sp);
+void				swap_float(float *a, float *b);
+void				intersect_caps(t_element *cy, t_ray ray, t_world *world);
+bool				check_cap(t_ray r, float t, float radius);
 
 
 // MATHS UTILS
