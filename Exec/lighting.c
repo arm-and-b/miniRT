@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 22:45:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 00:12:55 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:03:15 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_color	lighting(t_world *world, t_comps comps, bool in_shadow)
 	m = comps.object->material;
 	lc.effective_color = m.color * world->light.colors;
 	lc.lightv = normalize(world->light.position - comps.over_point);
-	lc.ambient = lc.effective_color * world->ambient.colors * world->ambient.brightness;
+	lc.ambient = lc.effective_color * world->ambient.colors * \
+	world->ambient.brightness;
 	lc.light_dot_normal = dot_product(lc.lightv, comps.normalv);
 	if (lc.light_dot_normal < 0 || in_shadow)
 		return (lc.ambient);

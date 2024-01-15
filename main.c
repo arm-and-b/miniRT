@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:15 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/08 21:07:06 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:03:50 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ static int	ft_open(char *argv)
 	if (fd < 0)
 		return (printf("ERROR : CANNOT OPEN '%s'\n", argv), exit(1), -1);
 	return (fd);
+}
+
+static void	destroy_canva(t_world	*world)
+{
+	mlx_destroy_image(world->mlx.mlx, world->mlx.img.img);
+	mlx_destroy_window(world->mlx.mlx, world->mlx.win);
+	mlx_destroy_display(world->mlx.mlx);
+	free(world->mlx.mlx);
 }
 
 int	main(int argc, char **argv)

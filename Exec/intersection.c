@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 19:38:21 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:01:43 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
 {
 	t_discriminant	d;
+	float			y1;
+	float			y2;
 
 	r = transform(r, cylinder->inverse);
 	d = cylinder_discriminant(r, cylinder->cylinder);
@@ -74,10 +76,10 @@ void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
 		return ;
 	if (d.t1 > d.t2)
 		swap_float(&d.t1, &d.t2);
-	float	y1 = r.origin.y + d.t1 * r.direction.y;
+	y1 = r.origin.y + d.t1 * r.direction.y;
 	if (cylinder->cylinder.minimum < y1 && y1 < cylinder->cylinder.maximum)
 		intersection(d.t1, cylinder, world);
-	float	y2 = r.origin.y + d.t2 * r.direction.y;
+	y2 = r.origin.y + d.t2 * r.direction.y;
 	if (cylinder->cylinder.minimum < y2 && y2 < cylinder->cylinder.maximum)
 		intersection(d.t2, cylinder, world);
 }
@@ -90,11 +92,11 @@ void	intersect(t_world	*world, t_ray	r)
 	world->intersections = NULL;
 	while (tmp)
 	{
-		if (tmp->type == 1)
+		if (tmp->type == SPHERE)
 			intersect_sphere(tmp, world, r);
-		else if (tmp->type == 2)
+		else if (tmp->type == PLANE)
 			intersect_plane(tmp, world, r);
-		else if (tmp->type == 3)
+		else if (tmp->type == CYLINDER)
 			intersect_cylinder(tmp, world, r);
 		tmp = tmp->next;
 	}

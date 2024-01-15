@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:06:26 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 05:20:27 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:03:56 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,4 @@ void	write_pixel(t_img image, unsigned int x,
 		return ;
 	dst = image.addr + (y * image.line_length + x * (image.bpp / 8));
 	*(unsigned int *)dst = color;
-}
-
-void	destroy_canva(t_world	*world)
-{
-	mlx_destroy_image(world->mlx.mlx, world->mlx.img.img);
-	mlx_destroy_window(world->mlx.mlx, world->mlx.win);
-	mlx_destroy_display(world->mlx.mlx);
-	free(world->mlx.mlx);
 }

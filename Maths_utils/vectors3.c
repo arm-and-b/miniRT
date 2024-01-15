@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/14 22:40:38 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:02:28 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,26 @@ t_vector	negate(t_vector v)
 
 t_vector	normal_at(t_element *elem, t_vector p)
 {
-	t_point		local_point;
+	t_point		lp;
 	t_vector	local_normal;
 	t_vector	world_normal;
 	float		dist;
 
-	local_point = vect_x_matrix(elem->inverse, p);
-	local_point.w = 1.0;
+	lp = vect_x_matrix(elem->inverse, p);
+	lp.w = 1.0;
 	if (elem->type == SPHERE)
-		local_normal = local_point - point(0, 0, 0);
+		local_normal = lp - point(0, 0, 0);
 	if (elem->type == PLANE)
 		local_normal = vector(0, 1, 0);
-	if(elem->type == CYLINDER)
+	if (elem->type == CYLINDER)
 	{
-		dist = powf(local_point.x, 2.0) + powf(local_point.z, 2.0);
-		if (dist < 1.0 && local_point.y >= elem->cylinder.maximum - EPSILON)
+		dist = powf(lp.x, 2.0) + powf(lp.z, 2.0);
+		if (dist < 1.0 && lp.y >= elem->cylinder.maximum - EPSILON)
 			local_normal = vector(0, 1, 0);
-		else if (dist < 1.0 && local_point.y <= elem->cylinder.minimum + EPSILON)
+		else if (dist < 1.0 && lp.y <= elem->cylinder.minimum + EPSILON)
 			local_normal = vector(0, -1, 0);
 		else
-			local_normal = vector(local_point.x, 0, local_point.z);
+			local_normal = vector(lp.x, 0, lp.z);
 	}
 	world_normal = vect_x_matrix(transpose(elem->inverse), \
 			local_normal);

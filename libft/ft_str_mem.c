@@ -6,7 +6,7 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 12:45:02 by mbekouch          #+#    #+#             */
-/*   Updated: 2023/12/05 20:38:34 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:04:51 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	return (str);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len, t_world *world)
+char	*ft_substr(char const *s, unsigned int start, \
+size_t len, t_world *world)
 {
 	char	*sub;
 

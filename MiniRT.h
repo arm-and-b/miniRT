@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 17:54:33 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:05:40 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void				get_cylinder(char **element, t_world *world);
 void				get_color(char *element, t_world *world, t_color *colors);
 void				ft_add_back(t_element **lst, t_element *new);
 void				get_orientation(t_vector *orientation, t_world *world);
+void				get_origin(t_point *origin, t_world *world);
 
 // EXEC
 t_matrix			rotation_matrix(t_vector vector);
@@ -79,7 +80,6 @@ t_color				subtr_colors(t_color	a, t_color	b);
 t_color				mult_color(t_color	a, float b);
 t_color				hadamard_product(t_color	a, t_color	b);
 void				create_canva(t_world *world);
-void				destroy_canva(t_world	*world);
 void				write_pixel(t_img image, unsigned int x,
 						unsigned int y, unsigned int color);
 int					win_close(int keycode, t_world *world);

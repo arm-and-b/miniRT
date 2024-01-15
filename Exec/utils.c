@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:32:54 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 21:18:28 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:02:58 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	swap_float(float *a, float *b)
 	*a = *b;
 	*b = tmp;
 }
-
 
 void	print_vect(t_vector v)
 {
