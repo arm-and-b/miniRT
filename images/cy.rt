@@ -1,5 +1,5 @@
-C  0,0,-15        0,0,1  80
-L  15,5,-5   0.7    255,255,255
+C  0,0,-30        0,0,1  70
+L  150,5,-15   0.7    255,255,255
 A  0.5 255,255,255
 
 # Cylinder
@@ -8,8 +8,16 @@ A  0.5 255,255,255
 
 # Cylinder
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
-cy       0,0,0          1,0,0          5         5        0,0,255
+cy       0,0,-10          0,1,0          5         5        0,0,255
 
 # Plane
 # <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
-# pl       0,0,10          0,0,0          0,255,255
+pl       0,0,0          1,0,0          0,255,255
+
+# Plane
+# <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
+pl       0,0,0          0,1,0          0,255,0
+
+# Plane
+# <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
+pl       0,0,0          0,0,1          34,100,255

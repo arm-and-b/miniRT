@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:29:36 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 18:34:08 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 19:14:23 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	get_cylinder(char **element, t_world *world)
 	cy->type = CYLINDER;
 	cy->cylinder.minimum = 1;
 	cy->cylinder.maximum = cy->cylinder.height;
-	cy->cylinder.closed = false;
+	cy->cylinder.closed = true;
 	cy->next = NULL;
 	ft_add_back(world->objects, cy);
 }

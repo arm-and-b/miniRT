@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 18:33:21 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 19:38:21 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 {
 	float	t;
 
+	r = transform(r, plane->inverse);
 	if (fabsf(r.direction.y) < EPSILON)
 		return ;
 	t = (-r.origin.y) / r.direction.y;
