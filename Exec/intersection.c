@@ -6,13 +6,13 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 23:36:29 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 18:33:21 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MiniRT.h"
 
-static void	intersection(float t, t_element *element, t_world *world)
+void	intersection(float t, t_element *element, t_world *world)
 {
 	static t_intersect	list[256];
 	static size_t		i;
@@ -41,7 +41,7 @@ static void	intersection(float t, t_element *element, t_world *world)
 	inter[0]->next = inter[2];
 }
 
-static void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
+void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
 {
 	t_discriminant	d;
 
@@ -52,7 +52,7 @@ static void	intersect_sphere(t_element	*sphere, t_world	*world, t_ray r)
 	intersection(d.t2, sphere, world);
 }
 
-static void	intersect_plane(t_element *plane, t_world *world, t_ray r)
+void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 {
 	float	t;
 
@@ -62,11 +62,11 @@ static void	intersect_plane(t_element *plane, t_world *world, t_ray r)
 	intersection(t, plane, world);
 }
 
-// Pas encore fini
-static void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
+void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
 {
 	t_discriminant	d;
 
+	r = transform(r, cylinder->inverse);
 	d = cylinder_discriminant(r, cylinder->cylinder);
 	intersect_caps(cylinder, r, world);
 	if (d.disc < 0 || d.a < EPSILON)
@@ -81,24 +81,9 @@ static void	intersect_cylinder(t_element *cylinder, t_world *world, t_ray r)
 		intersection(d.t2, cylinder, world);
 }
 
-void	intersect_caps(t_element *cy, t_ray ray, t_world *world)
-{
-	float	t;
-
-	if (!cy->cylinder.closed || fabsf(ray.direction.y) < EPSILON)
-		return ;
-	t = (cy->cylinder.minimum - ray.origin.y) / ray.direction.y;
-	if (check_cap(ray, t, cy->cylinder.diameter / 2))
-		intersection(t, cy, world);
-	t = (cy->cylinder.maximum - ray.origin.y) / ray.direction.y;
-	if (check_cap(ray, t, cy->cylinder.diameter / 2))
-		intersection(t, cy, world);
-}
-
 void	intersect(t_world	*world, t_ray	r)
 {
 	t_element	*tmp;
-	t_ray		ray;
 
 	tmp = *world->objects;
 	world->intersections = NULL;
@@ -107,10 +92,7 @@ void	intersect(t_world	*world, t_ray	r)
 		if (tmp->type == 1)
 			intersect_sphere(tmp, world, r);
 		else if (tmp->type == 2)
-		{
-			ray = transform(r, inverse(tmp->transform));
-			intersect_plane(tmp, world, ray);
-		}
+			intersect_plane(tmp, world, r);
 		else if (tmp->type == 3)
 			intersect_cylinder(tmp, world, r);
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:29:36 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 23:28:47 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 18:34:08 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	get_orientation(t_vector *orientation, t_world *world)
 void	get_cylinder(char **element, t_world *world)
 {
 	t_element	*cy;
+	t_matrix	scale;
+	t_matrix	translate;
+	t_matrix	rotate;
 
 	if (tab_size(element) != 6)
 		ft_error("cy element", true, world);
@@ -73,15 +76,18 @@ void	get_cylinder(char **element, t_world *world)
 	cy->cylinder.axis = normalize(cy->cylinder.axis);
 	cy->material = material();
 	get_color(element[5], world, &cy->material.color);
-	set_transform(cy, cross_matrices(translation(cy->cylinder.origin.x, cy->cylinder.origin.y, cy->cylinder.origin.z),
-					rotation_matrix(vector(cy->cylinder.axis.x, cy->cylinder.axis.y, cy->cylinder.axis.z))));
-	cy->cylinder.diameter = ft_atof(element[3], world);
+	cy->cylinder.radius = (ft_atof(element[3], world) / 2);
 	cy->cylinder.height = ft_atof(element[4], world);
-	if (cy->cylinder.diameter <= 0.0 || cy->cylinder.height <= 0.0)
+	if (cy->cylinder.radius <= 0.0 || cy->cylinder.height <= 0.0)
 		ft_error("cyl diameter", true, world);
+	scale = scaling(cy->cylinder.radius, 1, cy->cylinder.radius);
+	translate = translation(cy->cylinder.origin.x, cy->cylinder.origin.y, cy->cylinder.origin.z);
+	rotate = rotation_matrix(cy->cylinder.axis);
+	set_transform(cy, cross_matrices(translate, cross_matrices(rotate, scale)));
 	cy->type = CYLINDER;
 	cy->cylinder.minimum = 1;
-	cy->cylinder.maximum = 100;
+	cy->cylinder.maximum = cy->cylinder.height;
 	cy->cylinder.closed = false;
+	cy->next = NULL;
 	ft_add_back(world->objects, cy);
 }

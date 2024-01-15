@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/14 21:58:42 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/15 17:22:42 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	float		height;
-	float		diameter;
+	float		radius;
 	t_point		origin;
 	t_vector	axis;
 	float		minimum;

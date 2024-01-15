@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:03:18 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 07:06:03 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:07:17 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,27 +78,33 @@ void	get_sphere(char **element, t_world *world)
 
 void	get_plane(char **element, t_world *world)
 {
-	t_element	*plane;
+	t_element	*pl;
+	t_matrix	translate;
+	t_matrix	rotate;
 
 	if (tab_size(element) != 4)
 		ft_error("Plane Elemnts", true, world);
 	world->parser = ft_split(element[1], ',', world);
 	if (tab_size(world->parser) != 3)
 		ft_error("plane", true, world);
-	plane = (t_element *)ft_malloc(sizeof(t_element), world);
-	plane->plane.origin = point(ft_atof(world->parser[0], world),
+	pl = (t_element *)ft_malloc(sizeof(t_element), world);
+	pl->plane.origin = point(ft_atof(world->parser[0], world),
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
 	world->parser = ft_split(element[2], ',', world);
 	if (tab_size(world->parser) != 3)
 		ft_error("plane", true, world);
-	plane->plane.orientation = vector(ft_atof(world->parser[0], world),
+	pl->plane.orientation = vector(ft_atof(world->parser[0], world),
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
-	set_transform(plane, translation(plane->plane.origin.x, \
-	plane->plane.origin.y, plane->plane.origin.z));
-	plane->type = 2;
-	plane->next = NULL;
-	get_color(element[3], world, &plane->material.color);
-	ft_add_back(world->objects, plane);
+	pl->material = material();
+	pl->plane.orientation = normalize(pl->plane.orientation);
+	pl->type = 2;
+	pl->next = NULL;
+	get_color(element[3], world, &pl->material.color);
+	translate = translation(pl->plane.origin.x, pl->plane.origin.y, \
+		pl->plane.origin.z);
+	rotate = rotation_matrix(pl->plane.orientation);
+	set_transform(pl, cross_matrices(translate, rotate));
+	ft_add_back(world->objects, pl);
 }
