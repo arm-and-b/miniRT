@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 15:32:03 by mbekouch          #+#    #+#             */
-/*   Updated: 2023/04/02 14:47:05 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:00:44 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*ft_strncpy(char *dest, const char *src, size_t n)
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	if (!n || (!s1 && !s2))
+		return (0);
 	while ((*s1 || *s2) && n)
 	{
 		if (*s1 != *s2)

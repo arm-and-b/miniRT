@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:59:41 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/15 21:02:28 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:36:42 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,4 @@ t_vector	reflect(t_vector in, t_vector normal)
 t_vector	negate(t_vector v)
 {
 	return (vector(-v.x, -v.y, -v.z));
-}
-
-t_vector	normal_at(t_element *elem, t_vector p)
-{
-	t_point		lp;
-	t_vector	local_normal;
-	t_vector	world_normal;
-	float		dist;
-
-	lp = vect_x_matrix(elem->inverse, p);
-	lp.w = 1.0;
-	if (elem->type == SPHERE)
-		local_normal = lp - point(0, 0, 0);
-	if (elem->type == PLANE)
-		local_normal = vector(0, 1, 0);
-	if (elem->type == CYLINDER)
-	{
-		dist = powf(lp.x, 2.0) + powf(lp.z, 2.0);
-		if (dist < 1.0 && lp.y >= elem->cylinder.maximum - EPSILON)
-			local_normal = vector(0, 1, 0);
-		else if (dist < 1.0 && lp.y <= elem->cylinder.minimum + EPSILON)
-			local_normal = vector(0, -1, 0);
-		else
-			local_normal = vector(lp.x, 0, lp.z);
-	}
-	world_normal = vect_x_matrix(transpose(elem->inverse), \
-			local_normal);
-	world_normal.w = 0.0;
-	return (normalize(world_normal));
 }

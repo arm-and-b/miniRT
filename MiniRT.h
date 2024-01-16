@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:05:40 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:04:45 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-
 
 # include "./libft/libft.h"
 # include "./mlx/mlx.h"
@@ -70,6 +69,7 @@ void				get_color(char *element, t_world *world, t_color *colors);
 void				ft_add_back(t_element **lst, t_element *new);
 void				get_orientation(t_vector *orientation, t_world *world);
 void				get_origin(t_point *origin, t_world *world);
+void				get_cone(char **element, t_world *world);
 
 // EXEC
 t_matrix			rotation_matrix(t_vector vector);
@@ -98,7 +98,7 @@ t_ray				create_ray(t_vector origin, t_vector direction);
 t_point				position(t_ray	r, float t);
 t_vector			normal_at(t_element *elem, t_vector p);
 t_vector			reflect(t_vector in, t_vector normal);
-t_material			material(void);
+t_material			material(t_world *world);
 t_light				point_light(t_vector position, t_color intensity);
 t_color				lighting(t_world *world, t_comps comps, bool in_shadow);
 void				print_color(t_color c);
@@ -115,6 +115,12 @@ void				swap_float(float *a, float *b);
 void				intersect_caps(t_element *cy, t_ray ray, t_world *world);
 bool				check_cap(t_ray r, float t);
 void				intersection(float t, t_element *element, t_world *world);
+void				intersect_cone(t_element *cone, t_world *world, t_ray r);
+t_discriminant		cone_discriminant(t_ray	r, t_cone	cone);
+void				intersect_caps_cone(t_element *co,
+						t_ray ray, t_world *world);
+bool				check_cap_cone(t_ray ray, float t, float cone_range);
+bool				get_closed(char *parsing);
 
 
 // MATHS UTILS

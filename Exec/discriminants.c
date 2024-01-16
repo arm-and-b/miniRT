@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 20:14:49 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 19:03:38 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:32:51 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ t_discriminant	cylinder_discriminant(t_ray	r, t_cylinder	cy)
 	d.b = 2 * r.origin.x * r.direction.x + \
 		2 * r.origin.z * r.direction.z;
 	d.c = powf(r.origin.x, 2.0f) + powf(r.origin.z, 2.0f) - 1;
+	d.disc = powf(d.b, 2) - (4 * d.a * d.c);
+	d.t1 = (-d.b - sqrtf(d.disc)) / (2 * d.a);
+	d.t2 = (-d.b + sqrtf(d.disc)) / (2 * d.a);
+	return (d);
+}
+
+t_discriminant	cone_discriminant(t_ray	r, t_cone co)
+{
+	t_discriminant		d;
+	float				k;
+
+	k = 1 + powf(co.rayon, 2.0f) / powf(co.height, 2.0f);
+	d.a = powf(r.direction.x, 2.0f) + powf(r.direction.z, 2.0f) - \
+		k * powf(r.direction.y, 2.0f);
+	d.b = 2 * r.origin.x * r.direction.x + \
+		2 * r.origin.z * r.direction.z - \
+		k * 2 * r.origin.y * r.direction.y;
+	d.c = powf(r.origin.x, 2.0f) + powf(r.origin.z, 2.0f) - \
+		k * powf(r.origin.y, 2.0f);
 	d.disc = powf(d.b, 2) - (4 * d.a * d.c);
 	d.t1 = (-d.b - sqrtf(d.disc)) / (2 * d.a);
 	d.t2 = (-d.b + sqrtf(d.disc)) / (2 * d.a);

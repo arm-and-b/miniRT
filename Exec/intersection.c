@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 00:13:17 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:01:43 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:37:12 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	intersect(t_world	*world, t_ray	r)
 			intersect_plane(tmp, world, r);
 		else if (tmp->type == CYLINDER)
 			intersect_cylinder(tmp, world, r);
+		else if (tmp->type == CONE)
+			intersect_cone(tmp, world, r);
 		tmp = tmp->next;
 	}
 }

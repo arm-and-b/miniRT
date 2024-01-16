@@ -31,6 +31,7 @@ SRCS =		check_params.c	\
 		matrix3.c	\
 		matrix4.c	\
 		maths_utils.c	\
+		normal_at.c	\
 		rays.c	\
 		hits.c	\
 		discriminants.c	\
@@ -39,6 +40,7 @@ SRCS =		check_params.c	\
 		lighting.c	\
 		camera.c	\
 		shadows.c	\
+		intersections_caps.c	\
 		main.c	\
 
 

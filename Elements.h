@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 17:22:42 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:43:31 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define SPHERE 1
 # define PLANE 2
 # define CYLINDER 3
+# define CONE 4
 
 typedef struct s_matrix
 {
@@ -90,6 +91,17 @@ typedef struct s_cylinder
 	bool		closed;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	float		height;
+	float		rayon;
+	t_point		origin;
+	t_vector	axis;
+	float		minimum;
+	float		maximum;
+	bool		closed;
+}	t_cone;
+
 typedef struct s_element
 {
 	union
@@ -97,6 +109,7 @@ typedef struct s_element
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
+		t_cone		cone;
 	};
 	int					type;
 	t_material			material;

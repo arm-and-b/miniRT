@@ -6,7 +6,7 @@
 /*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 05:46:25 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/13 23:41:21 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:24:18 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	get_elements(char **element, t_world *world)
 		get_plane(element, world);
 	else if (!ft_strncmp(element[0], "cy", 3))
 		get_cylinder(element, world);
+	else if (!ft_strncmp(element[0], "co", 2))
+		get_cone(element, world);
 	else
 		ft_error("Parsing error", true, world);
 }

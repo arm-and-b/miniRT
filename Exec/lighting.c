@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 22:45:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:03:15 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:48:26 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MiniRT.h"
 
-t_material	material(void)
+t_material	material(t_world *world)
 {
 	t_material	m;
 
+	(void)world;
 	m.color = (t_color){6, 8, 5};
-	m.shininess = 20.0f;
+	m.shininess = 200.0f;
 	return (m);
 }
 
