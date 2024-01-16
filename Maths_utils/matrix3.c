@@ -6,13 +6,13 @@
 /*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:16:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/15 20:30:06 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:24:29 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../MiniRT.h"
 
-static void	calculate_rotation_angles(t_vector orientaion, float *x, float *z)
+static void	calculate_rotations(t_vector orientaion, float *x, float *z)
 {
 	float	ratio;
 
@@ -33,7 +33,7 @@ t_matrix	rotation_matrix(t_vector vector)
 	t_matrix	rotate_x;
 	t_matrix	full_rotation;
 
-	calculate_rotation_angles(vector, &x_angle, &z_angle);
+	calculate_rotations(vector, &x_angle, &z_angle);
 	rotate_z = rotation_z(z_angle);
 	rotate_x = rotation_x(x_angle);
 	full_rotation = cross_matrices(rotate_z, rotate_x);

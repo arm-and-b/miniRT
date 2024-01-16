@@ -1,6 +1,6 @@
-C  0,100,-100        0,0,1  150
-L  20,200,-15   0.7    180,100,43
-A  0.9 255,255,255
+# co       0,7,-5          1,0,0          5         10        230,230,15 1
+C  0,10,-30        0,-1,1  130
+A  0.2 255,255,255
 
 # Cylinder
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
@@ -8,7 +8,7 @@ A  0.9 255,255,255
 
 # Cylinder
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
-cy       150,5,0          0,0,1          50         34        25,25,255 0
+cy       0,-2.5,0          1,0,0          5         30        255,245,238 1
 
 # Plane
 # <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
@@ -16,12 +16,13 @@ cy       150,5,0          0,0,1          50         34        25,25,255 0
 
 # # Plane
 # <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
-# pl       0,0,-15          0,0,1          90,10,188
+pl       0,0,150          0,0,1          201,169,166
+pl       0,-5,150          0,1,0          255,127,80
 
 # # Plane
 # # <coordinates: x,y,z>  <orientation: x,y,z> <color:red,green,blue>
-pl       0,-20,-20          0,1,0          34,100,0
+# pl       0,-20,-20          0,1,0          34,100,0
+L  120,80,0   0.7    255,255,255
 
 # Cone
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
-co       -40,50,0          1,0,0          15         10        230,230,15 0

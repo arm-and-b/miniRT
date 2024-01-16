@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 21:32:50 by abinet            #+#    #+#             */
-/*   Updated: 2024/01/16 14:54:54 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 20:51:15 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_comps	prepare_computations(t_intersect *i, t_ray r)
 		c.inside = true;
 		c.normalv = negate(c.normalv);
 	}
-	c.over_point = c.point + c.normalv * EPSILON;
+	c.over_point = c.point + c.normalv * EPSILON * 100;
 	return (c);
 }
 
@@ -40,7 +40,7 @@ void	intersect_cone(t_element *cone, t_world *world, t_ray r)
 	r = transform(r, cone->inverse);
 	d = cone_discriminant(r, cone->cone);
 	intersect_caps_cone(cone, r, world);
-	if (d.disc < 0 || d.a < EPSILON)
+	if (d.disc < 0 || fabsf(d.a) < EPSILON)
 		return ;
 	if (d.t1 > d.t2)
 		swap_float(&d.t1, &d.t2);

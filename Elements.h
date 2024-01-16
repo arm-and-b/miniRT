@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Elements.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:56:30 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/16 10:43:31 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 21:22:16 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,6 @@ typedef struct s_camera
 	bool		parsed;
 }	t_camera;
 
-typedef struct s_material
-{
-	t_color		color;
-	float		ambient;
-	float		diffuse;
-	float		specular;
-	float		shininess;
-}	t_material;
-
 typedef struct s_plane
 {
 	t_point		origin;
@@ -112,7 +103,8 @@ typedef struct s_element
 		t_cone		cone;
 	};
 	int					type;
-	t_material			material;
+	t_color				color;
+	float				shininess;
 	t_matrix			transform;
 	t_matrix			inverse;
 	struct s_element	*next;

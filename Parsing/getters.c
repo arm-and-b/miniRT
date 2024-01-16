@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:03:18 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/16 16:50:29 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 21:20:33 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	get_sphere(char **element, t_world *world)
 	sp->sphere.rayon = ft_atof(element[2], world) / 2;
 	if (sp->sphere.rayon <= 0.0000)
 		ft_error("Sphere Diameter", true, world);
-	sp->material = material(world);
-	get_color(element[3], world, &sp->material.color);
+	get_color(element[3], world, &sp->color);
+	sp->shininess = 200.0f;
 	set_transform(sp, cross_matrices(translation(sp->sphere.origin.x, \
 	sp->sphere.origin.y, sp->sphere.origin.z), scaling(sp->sphere.rayon, \
 	sp->sphere.rayon, sp->sphere.rayon)));
@@ -97,12 +97,12 @@ void	get_plane(char **element, t_world *world)
 	pl->plane.orientation = vector(ft_atof(world->parser[0], world),
 			ft_atof(world->parser[1], world),
 			ft_atof(world->parser[2], world));
-	pl->material = material(world);
-	pl->type = PLANE;
-	pl->next = NULL;
-	get_color(element[3], world, &pl->material.color);
+	get_color(element[3], world, &pl->color);
 	set_transform(pl, cross_matrices(translation(pl->plane.origin.x,
 				pl->plane.origin.y, pl->plane.origin.z),
 			rotation_matrix(pl->plane.orientation)));
+	pl->type = PLANE;
+	pl->next = NULL;
+	pl->shininess = 200.0f;
 	ft_add_back(world->objects, pl);
 }

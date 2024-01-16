@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:28:47 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/16 17:04:45 by abinet           ###   ########.fr       */
+/*   Updated: 2024/01/16 21:31:49 by mbekouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_ray				create_ray(t_vector origin, t_vector direction);
 t_point				position(t_ray	r, float t);
 t_vector			normal_at(t_element *elem, t_vector p);
 t_vector			reflect(t_vector in, t_vector normal);
-t_material			material(t_world *world);
 t_light				point_light(t_vector position, t_color intensity);
 t_color				lighting(t_world *world, t_comps comps, bool in_shadow);
 void				print_color(t_color c);
@@ -121,7 +120,6 @@ void				intersect_caps_cone(t_element *co,
 						t_ray ray, t_world *world);
 bool				check_cap_cone(t_ray ray, float t, float cone_range);
 bool				get_closed(char *parsing);
-
 
 // MATHS UTILS
 t_vector			negate(t_vector v);
