@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 22:45:52 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/16 21:22:10 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:47:02 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_color	lighting(t_world *world, t_comps comps, bool in_shadow)
 	lc.light_dot_normal = dot_product(lc.lightv, comps.normalv);
 	if (lc.light_dot_normal < 0 || in_shadow)
 		return (lc.ambient);
-	lc.diffuse = lc.effective_color * lc.light_dot_normal;
+	lc.diffuse = lc.effective_color * lc.light_dot_normal * world->light.brightness;
 	lc.reflectv = reflect(negate(lc.lightv), comps.normalv);
 	lc.reflect_dot_eye = dot_product(lc.reflectv, comps.eyev);
 	if (lc.reflect_dot_eye <= 0)
 		return (lc.ambient + lc.diffuse);
-	lc.factor = powf(lc.reflect_dot_eye, comps.object->shininess);
+	lc.factor = powf(lc.reflect_dot_eye, comps.object->shininess / world->light.brightness);
 	lc.specular = world->light.colors * lc.factor;
 	return ((lc.ambient + lc.diffuse + lc.specular));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbekouch <mbekouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abinet <abinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:03:18 by mbekouch          #+#    #+#             */
-/*   Updated: 2024/01/16 21:20:33 by mbekouch         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:41:55 by abinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_camera(char **element, t_world *world)
 void	get_light(char **element, t_world *world)
 {
 	if (tab_size(element) != 4)
-		ft_error("Light Elemets", true, world);
+		ft_error("Light Elements", true, world);
 	world->parser = ft_split(element[1], ',', world);
 	if (tab_size(world->parser) != 3)
 		ft_error("Light origin", true, world);
